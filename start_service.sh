@@ -1,5 +1,4 @@
 #!/bin/bash
-git pull;
 EX_PATH="`dirname \"$0\"`"              # relative
 EX_PATH="`( cd \"$EX_PATH\" && pwd )`"  # absolutized and normalized
 if [ -z "$EX_PATH" ] ; then
@@ -8,5 +7,6 @@ if [ -z "$EX_PATH" ] ; then
   exit 1  # fail
 fi
 cd "$EX_PATH";
+git pull;
 npm install;
 npm run start;
