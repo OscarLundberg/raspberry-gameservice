@@ -1,11 +1,12 @@
 const { execSync } = require('child_process');
 
 const express = require('express');
-const endpoints = require('./endpoints');
+let { CONFIG, STATE } = require('./config');
+
+
+
 require('child_process');
-let FRAMERATE = 30;
-let RESOLUTION = 720;
-let CECADDRESS = '0.0.0.0';
+
 let GLOBAL_TIMEOUT;
 let keepAlive = false;
 
@@ -14,7 +15,7 @@ app.listen(3000, () => {
     console.log("Server running on port 3000");
 });
 
-for (let key of Object.keys(endpoints)) {
+for (let key of Object.keys(CONFIG.endpoints)) {
     app.get(`/${key}`, (req, res) => {
         GLOBAL_TIMEOUT = setTimeout(() => {
             respond(408, {}, res);
@@ -23,11 +24,11 @@ for (let key of Object.keys(endpoints)) {
         keepAlive = false;
         let response;
         try {
-            response = endpoints[key](req);
+            response = CONFIG.endpoints[key](req, STATE);
             if (response.exec) {
                 keepAlive = true;
                 let result = execSync(response.exec);
-                respond(200, { status: "200", body: result.toString()}, res);
+                respond(200, { status: "200", body: result.toString() }, res);
                 delete response.exec;
             }
         } catch (e) {
