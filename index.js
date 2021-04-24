@@ -1,4 +1,4 @@
-const { execSync } = require('child_process');
+const { exec } = require('child_process');
 
 const express = require('express');
 let { CONFIG, STATE } = require('./config');
@@ -27,7 +27,11 @@ for (let key of Object.keys(CONFIG.endpoints)) {
             response = CONFIG.endpoints[key](req, STATE);
             if (response.exec) {
                 keepAlive = true;
-                let result = execSync(response.exec);
+
+                let result;
+                result = exec(response.exec);
+                result.stdout.on('data', (d) => console.log(d));
+                result.stderr.on('data', (d) => console.log(d));
                 respond(200, { status: "200", body: result.toString() }, res);
                 delete response.exec;
             }
