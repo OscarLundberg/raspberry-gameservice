@@ -29,9 +29,9 @@ for (let key of Object.keys(CONFIG.endpoints)) {
                 keepAlive = true;
 
                 let result;
-                result = exec(response.exec);
                 result.stdout.on('data', (d) => console.log(d));
                 result.stderr.on('data', (d) => console.log(d));
+                result = exec(response.exec);
                 respond(200, { status: "200", body: result.toString() }, res);
                 delete response.exec;
             }
