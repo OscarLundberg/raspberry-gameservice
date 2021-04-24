@@ -41,7 +41,7 @@ const CONFIG = {
         },
         "play": (req, state) => {
             console.log(req);
-            return { exec: `moonlight stream -appname ${req.query.name} -${state.RESOLUTION} -fps ${state.FRAMERATE}` }
+            return { exec: `moonlight stream -app ${req.query.name} -${state.RESOLUTION} -fps ${state.FRAMERATE}` }
         },
         "stop": () => {
             return { exec: "moonlight quit" }
