@@ -1,13 +1,9 @@
 // const { spawn } = require('child_process');
-const execa = require('execa');
+const { execSync } = require('child_process');
 
 
 const express = require('express');
 let { CONFIG, STATE } = require('./config');
-
-
-
-require('child_process');
 
 let GLOBAL_TIMEOUT;
 let keepAlive = false;
@@ -33,14 +29,9 @@ for (let key of Object.keys(CONFIG.endpoints)) {
                 let result;
                 // result = execa(response.exec);
 
-                const subprocess = execa.command(response.exec);
-                subprocess.stdout.pipe(process.stdout);
-
-                (async () => {
-                    const { stdout } = await subprocess;
-                    respond(200, { status: "200", body: stdout }, res);
-                })();
-                
+                const subprocess = execSync(response.exec);
+                // subprocess.stdout.pipe(process.stdout);
+                respond(200, subprocess, res);
                 delete response.exec;
             }
         } catch (e) {
