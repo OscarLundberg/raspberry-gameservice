@@ -4,8 +4,12 @@
   "description": "run retropie games on http request",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "child_process": "^1.0.2"
+  }
 }
