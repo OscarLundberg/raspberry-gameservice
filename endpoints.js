@@ -34,7 +34,7 @@ module.exports = {
     },
     "play": (req) => {
         console.log(req);
-        return { exec: `moonlight stream ${req.query.name} -${RESOLUTION} -fps ${FRAMERATE}` }
+        return { exec: `moonlight stream -appname ${req.query.name} -${RESOLUTION} -fps ${FRAMERATE}` }
     },
     "stop": () => {
         return { exec: "moonlight quit" }
