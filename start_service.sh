@@ -1,4 +1,5 @@
 #!/bin/bash
+git pull;
 EX_PATH="`dirname \"$0\"`"              # relative
 EX_PATH="`( cd \"$EX_PATH\" && pwd )`"  # absolutized and normalized
 if [ -z "$EX_PATH" ] ; then
