@@ -7,5 +7,5 @@ if [ -z "$EX_PATH" ] ; then
   exit 1  # fail
 fi
 cd "$EX_PATH";
-# npm install;
+npm install;
 npm run start;
