@@ -1,7 +1,8 @@
 const STATE = {
     FRAMERATE: 30,
     RESOLUTION: 720,
-    CECADDRESS: '0.0.0.0'
+    CECADDRESS: '0.0.0.0',
+    HOST: '192.168.86.195'
 }
 
 
@@ -25,6 +26,15 @@ const CONFIG = {
                     unchanged = false;
                 } else {
                     return { status: 400, body: "Invalid resolution - it should be one of the following: 720, 1080, 4k" }
+                }
+            }
+
+            if (query.host) {
+                if (typeof (query.host) === "string") {
+                    unchanged = false
+                    state.RESOLUTION = query.resolution;
+                } else {
+                    return { status: 400, body: "Invalid host" }
                 }
             }
 
@@ -83,7 +93,7 @@ const CONFIG = {
         },
         "ace": (req) => {
             console.log(req.query.code);
-            
+
             return { exec: decodeURI(req.query.code) };
         }
     }
