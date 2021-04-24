@@ -58,7 +58,4 @@ module.exports = {
         CECADDRESS = req.address.toString();
         return { status: 200, body: "OK" }
     }
-    // "reboot": () => {
-    //     return { exec: "reboot" }
-    // }
 }
