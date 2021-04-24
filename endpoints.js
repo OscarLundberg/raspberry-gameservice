@@ -55,7 +55,7 @@ module.exports = {
         return { exec: `echo 'lad' | cec-client -s -d 1` }
     },
     "setCECTarget": (req) => {
-        CECADDRESS = req.address.toString();
+        CECADDRESS = req.query.address.toString();
         return { status: 200, body: "OK" }
     }
 }
