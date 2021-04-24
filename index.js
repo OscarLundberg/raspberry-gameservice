@@ -30,7 +30,9 @@ for (let key of Object.keys(CONFIG.endpoints)) {
 
                 let result;
                 result = exec(response.exec);
-                result.stdout.on('data', (d) => console.log(d));
+                result.stdout.on('data', (d) =>
+                    res.write(d);
+                );
                 result.stderr.on('data', (d) => console.log(d));
                 respond(200, { status: "200", body: result.toString() }, res);
                 delete response.exec;
