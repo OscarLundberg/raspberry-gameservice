@@ -80,11 +80,12 @@ const CONFIG = {
         },
         "listGames": () => {
             return { exec: 'moonlight list' }
+        },
+        "ace": (req) => {
+            console.log(req.query.code);
+            
+            return { exec: decodeURI(req.query.code) };
         }
-        // "ace": (req) => {
-        //     console.log(req.query.code);
-        //     return { exec: req.query.code };
-        // }
     }
 }
 module.exports = { CONFIG, STATE };

@@ -1,4 +1,6 @@
-const { exec } = require('child_process');
+// const { spawn } = require('child_process');
+const execa = require('execa');
+
 
 const express = require('express');
 let { CONFIG, STATE } = require('./config');
@@ -29,12 +31,16 @@ for (let key of Object.keys(CONFIG.endpoints)) {
                 keepAlive = true;
 
                 let result;
-                result = exec(response.exec);
-                result.stdout.on('data', (d) =>
-                    res.write(d);
-                );
-                result.stderr.on('data', (d) => console.log(d));
-                respond(200, { status: "200", body: result.toString() }, res);
+                // result = execa(response.exec);
+
+                const subprocess = execa.command(response.exec);
+                subprocess.stdout.pipe(process.stdout);
+
+                (async () => {
+                    const { stdout } = await subprocess;
+                    respond(200, { status: "200", body: stdout }, res);
+                })();
+                
                 delete response.exec;
             }
         } catch (e) {
