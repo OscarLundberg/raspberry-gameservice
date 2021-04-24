@@ -67,6 +67,19 @@ const CONFIG = {
         },
         "powerStatus": () => {
             return { exec: `echo 'pow' ${this.CECADDRESS} | cec-client -s -d 1` }
+        },
+        "pair": (req) => {
+            if (req.query.host) {
+                return { exec: `moonlight pair ${req.query.host}` }
+            } else {
+                return { exec: 'moonlight pair' }
+            }
+        },
+        "unpair": () => {
+            return { exec: 'moonlight unpair' }
+        },
+        "listGames": () => {
+            return { exec: 'moonlight list' }
         }
     }
 }
